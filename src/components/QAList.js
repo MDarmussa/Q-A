@@ -3,9 +3,10 @@ import { Accordion, Row } from 'react-bootstrap'
 import { question } from '../data'
 
 function QAList({ data, deleteOneItem }) {
+     const dataLocalStorage = JSON.parse(localStorage.getItem('items'))
      //to delete one item from array
      const onDeleteItem = (ID) => {
-          if(data.length >= 1) {
+          if(localStorage.getItem('items') != 1) {
                //findIndex: use to find the index in the array
                const index = question.findIndex((item) => item.id === ID);
                question.splice(index, 1); // after finding the index that we selected to delete, we remove only that one. 
@@ -13,12 +14,14 @@ function QAList({ data, deleteOneItem }) {
                deleteOneItem(question); // this is to send the delete function as a param to deleteOneItem in App.js
           }
      }
+
+     //localStorage.getItem('items') != null ? (data.map((item, index) means if the local storage is not empty, execute the code in the return
      
   return (
     <Row>
      <Accordion>
      {
-          data.length >= 1 ? (data.map((item, index) => {
+          localStorage.getItem('items') != null ? (dataLocalStorage.map((item, index) => {
                return (
                     <Accordion.Item key={index} eventKey={item.id}>
                          <Accordion.Header>

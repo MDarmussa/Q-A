@@ -2,12 +2,16 @@ import React, { useState } from 'react'
 import { Col, Form, Row } from 'react-bootstrap'
 import { question } from '../data'
 
-function FormInput( {onAdd} ) {
+function FormInput( {onAdd, notify} ) {
 
   const [qu, setQu] = useState('')
   const [an, setAn] = useState('')
 
   const addNewItem = () => {
+    if(qu === "" || an === "") {
+      notify('Please Fill Up the Form', "Error");
+      return;
+    }
     question.push({id: Math.random(), q: qu, a: an});
     setQu('') //this clear the question input box after submitting 'Add'
     setAn('')//this clear the answer input box after submitting 'Add' 
